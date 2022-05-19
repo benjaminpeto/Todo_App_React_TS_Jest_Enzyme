@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 type TodoType = {
   id: string,
   name: string,
+  isComplete: boolean,
 }
 
 function App() {
@@ -22,9 +23,24 @@ function App() {
       {
         id: nanoid(),
         name: newTodo,
+        isComplete: false,
       },
     ]);
     setNewTodo("");
+  };
+
+  const deleteTodo = (id: string) => {
+    setTodos((todos) => {
+      return todos.filter((todo) => todo.id !== id);
+    });
+  };
+
+  const markCompleteTodo = (id: string) => {
+    setTodos((todos) => {
+      return todos.map((todo) =>
+        todo.id === id ? { ...todo, isComplete: !todo.isComplete } : todo
+      );
+    });
   };
 
   return (
@@ -45,7 +61,11 @@ function App() {
       <ul>
         {
           todos.map(todos => (
-            <li key={todos.id}>{todos.name}</li>
+            <li key={todos.id} className={todos.isComplete ? "completed-todo" : ""}>
+              {todos.name}
+              <button onClick={() => deleteTodo(todos.id)}>Delete</button>
+              <button onClick={() => markCompleteTodo(todos.id)}>Done</button>
+            </li>
           ))
         }
       </ul>

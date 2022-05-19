@@ -37,6 +37,11 @@ li {
   padding: 5px 0;
 }
 
+.completed-todo {
+  color: green;
+  text-decoration: line-through;
+}
+
 @media (max-width: 900px) {
   input {
     width: 80vw;
