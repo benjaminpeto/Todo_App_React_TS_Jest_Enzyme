@@ -7,9 +7,10 @@ type TodoType = {
   isComplete: boolean,
 }
 
-function App() {
-  const [newTodo, setNewTodo] = useState('');
+const App = () => {
+  const [newTodo, setNewTodo] = useState<string>('');
   const [todos, setTodos] = useState<TodoType[]>([]);
+  //const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=> {
     const value = e.target.value;
@@ -18,15 +19,18 @@ function App() {
 
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    setTodos([
-      ...todos,
-      {
-        id: nanoid(),
-        name: newTodo,
-        isComplete: false,
-      },
-    ]);
-    setNewTodo("");
+
+    if (newTodo.length > 0) {
+      setTodos([
+        ...todos,
+        {
+          id: nanoid(),
+          name: newTodo,
+          isComplete: false,
+        },
+      ]);
+      setNewTodo("");
+    }
   };
 
   const deleteTodo = (id: string) => {
@@ -35,13 +39,22 @@ function App() {
     });
   };
 
-  const markCompleteTodo = (id: string) => {
+  const markCompletedTodo = (id: string) => {
     setTodos((todos) => {
       return todos.map((todo) =>
         todo.id === id ? { ...todo, isComplete: !todo.isComplete } : todo
       );
     });
   };
+
+  /* const handleEditTodo = (id: string, name: string) => {
+    setTodos((todos) => {
+      return todos.map((todo) => (
+        todo.id === id ? { ...todo, name} : todo)
+      );
+    });
+    setIsEdit(false)
+  }; */
 
   return (
     <div className="App">
@@ -60,11 +73,17 @@ function App() {
       </button>
       <ul>
         {
-          todos.map(todos => (
-            <li key={todos.id} className={todos.isComplete ? "completed-todo" : ""}>
-              {todos.name}
-              <button onClick={() => deleteTodo(todos.id)}>Delete</button>
-              <button onClick={() => markCompleteTodo(todos.id)}>Done</button>
+          todos.map(todo => (
+            <li
+              key={todo.id}
+              className={todo.isComplete ? "completed-todo" : ""}
+            >
+              {todo.name}
+              <div className='btn-wrapper'>
+                <button disabled onClick={() => {}}>Edit</button>
+                <button onClick={() => markCompletedTodo(todo.id)}>Done</button>
+                <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+              </div>
             </li>
           ))
         }
