@@ -1,52 +1,14 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: sans-serif;
-}
-
-h1 {
-  text-align: center;
-  padding: 30px 0;
-}
-
-input {
-  width: 30vw;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-button {
-  padding: 10px 20px;
-}
-
-ul {
-  list-style: none;
-}
-
-li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 20px;
-  padding: 5px 0;
-}
-
-.completed-listItem {
-  color: green;
-  text-decoration: line-through;
-}
-
-@media (max-width: 900px) {
-  input {
-    width: 80vw;
-  }
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: sans-serif;
 }

@@ -1,0 +1,15 @@
+input {
+	width: 30vw;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+button {
+	padding: 10px 20px;
+}
+
+@media (max-width: 900px) {
+	input {
+		width: 80vw;
+	}
+}
