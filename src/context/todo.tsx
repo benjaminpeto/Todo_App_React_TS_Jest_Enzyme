@@ -11,17 +11,21 @@ export const useTodo = () => {
 export const TodoProvider = ({ children }: TodoProviderType) => {
   const [todos, setTodos] = useState<TodoType[]>([]);
 
-  const handleSubmit = (name: string) => {
-    if (setTodos.length > 0) {
-      setTodos([
-        ...todos,
-        {
-          id: nanoid(),
-          name,
-          isComplete: false,
-        },
-      ]);
-    };
+  const addTodo = (name: string) => {
+    setTodos([
+      ...todos,
+      {
+        id: nanoid(),
+        name,
+        isComplete: false,
+      },
+    ]);
+  };
+
+  const editTodo = (name: string, id: string) => {
+    setTodos((todos) => {
+      return todos.map((todo) => (todo.id === id ? { ...todo, name } : todo));
+    });
   };
 
   const deleteTodo = (id: string) => {
@@ -43,7 +47,8 @@ export const TodoProvider = ({ children }: TodoProviderType) => {
       value={{
         todos,
         setTodos,
-        handleSubmit,
+        editTodo,
+        addTodo,
         markCompletedTodo,
         deleteTodo,
       }}

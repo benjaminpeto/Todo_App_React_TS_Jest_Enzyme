@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 type InputFieldProps = {
-  handleSubmit: (name: string) => void;
+  addTodo: (name: string) => void;
 }
 
-export const InputField = ({handleSubmit}: InputFieldProps) => {
+export const InputField = ({ addTodo }: InputFieldProps) => {
   const [ newTodo, setNewTodo ] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=> {
@@ -12,9 +12,11 @@ export const InputField = ({handleSubmit}: InputFieldProps) => {
     setNewTodo(value);
   }
 
-  const addTodo = (e: React.FormEvent<HTMLButtonElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    handleSubmit(newTodo);
+    if(newTodo) {
+      addTodo(newTodo);
+    }
     setNewTodo("");
   };
 
@@ -28,7 +30,7 @@ export const InputField = ({handleSubmit}: InputFieldProps) => {
         />
         <button
           type='submit'
-          onClick={addTodo}
+          onClick={handleSubmit}
         >
           Add
         </button>

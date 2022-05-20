@@ -3,12 +3,12 @@ import { TodoList } from "./components/TodoList";
 import { useTodo } from "./context/todo";
 
 const App = () => {
-  const { handleSubmit } = useTodo();
+  const { addTodo } = useTodo();
   
   return (
     <div className="App">
       <h1>Todo App</h1>
-      <InputField handleSubmit={handleSubmit} />
+      <InputField addTodo={addTodo} />
       <TodoList />
     </div>
   );
