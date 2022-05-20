@@ -34,7 +34,7 @@ export const TodoProvider = ({ children }: TodoProviderType) => {
     });
   };
 
-  const markCompletedTodo = (id: string) => {
+  const toggleTodo = (id: string) => {
     setTodos((todos) => {
       return todos.map((todo) =>
         todo.id === id ? { ...todo, isComplete: !todo.isComplete } : todo
@@ -48,7 +48,7 @@ export const TodoProvider = ({ children }: TodoProviderType) => {
         todos,
         editTodo,
         addTodo,
-        markCompletedTodo,
+        toggleTodo,
         deleteTodo,
       }}
     >

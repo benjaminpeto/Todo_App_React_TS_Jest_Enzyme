@@ -1,42 +1,35 @@
 import { useState } from "react";
-import { useTodo } from "../../context/todo";
 
 type ListItemProps = {
-  todo: {
+  listItem: {
     id: string;
     name: string;
     isComplete: boolean;
-  }
+  };
+  editListItem: (name: string, id: string) => void;
+  toggleListItem: (id: string) => void;
+  deleteListItem: (todoId: string) => void;
 };
 
-export const ListItem = ({ todo }: ListItemProps) => {
-  const { markCompletedTodo, deleteTodo, editTodo } = useTodo();
-  const [isEdit, setIsEdit] = useState<boolean>(false);
+export const ListItem = ({ listItem, editListItem, toggleListItem, deleteListItem }: ListItemProps) => {
+  const [isEdit, setIsEdit] = useState(false);
 
   const toggleEdit = () => {
-    editTodo('changed value', todo.id);
+    editListItem("changed value", listItem.id);
     setIsEdit(!isEdit);
   };
 
-	return (
-		<li
-      key={todo.id}
-      className={todo.isComplete ? "completed-todo" : ""}
+  return (
+    <li
+      key={listItem.id}
+      className={listItem.isComplete ? "completed-listItem" : ""}
     >
-      {/* {isEdit && (
-        <input
-          type="text"
-          placeholder={todo.name}
-          />
-      )} */}
-			{todo.name}
-			<div className="btn-wrapper">
-        <button onClick={toggleEdit}>
-          {!isEdit ? "Edit": "Save"}
-        </button>
-				<button onClick={() => markCompletedTodo(todo.id)}>Done</button>
-				<button onClick={() => deleteTodo(todo.id)}>Delete</button>
-			</div>
-		</li>
-	);
+      {listItem.name}
+      <div className="btn-wrapper">
+        <button onClick={toggleEdit}>{!isEdit ? "Edit" : "Save"}</button>
+        <button onClick={() => toggleListItem(listItem.id)}>Done</button>
+        <button onClick={() => deleteListItem(listItem.id)}>Delete</button>
+      </div>
+    </li>
+  );
 };
