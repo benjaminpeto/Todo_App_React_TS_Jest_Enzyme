@@ -1,16 +1,16 @@
-import { useTodo } from "../../context/todo";
+import { TodoType } from "../../types/todos";
 import { ListItem } from "../ListItem";
 
-export const TodoList = () => {
-  const { todos } = useTodo();
+type TodoListProps = {
+  todos: TodoType[];
+};
 
+export const TodoList = ({ todos }: TodoListProps) => {
   return (
     <ul>
-        {
-          todos.map(todo => (
-            <ListItem todo={todo} key={todo.id} />
-          ))
-        }
+      {todos.map((todo) => (
+        <ListItem todo={todo} key={todo.id} />
+      ))}
     </ul>
   );
 };

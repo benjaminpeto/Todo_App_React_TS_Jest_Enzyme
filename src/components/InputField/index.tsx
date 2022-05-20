@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 type InputFieldProps = {
   onSubmit: (input: string) => void;
@@ -7,12 +7,12 @@ type InputFieldProps = {
 export const InputField = ({ onSubmit }: InputFieldProps) => {
   const [input, setInput] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInput(value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (input) {
       onSubmit(input);
