@@ -11,6 +11,6 @@ export const TodoList = () => {
             <ListItem todo={todo} key={todo.id} />
           ))
         }
-      </ul>
+    </ul>
   );
 };

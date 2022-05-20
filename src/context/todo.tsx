@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-
+import { nanoid } from "nanoid";
 import { TodoContextType, TodoProviderType, TodoType } from "../types/todos";
 
 const TodoContext = createContext({} as TodoContextType);
@@ -10,6 +10,19 @@ export const useTodo = () => {
 
 export const TodoProvider = ({ children }: TodoProviderType) => {
   const [todos, setTodos] = useState<TodoType[]>([]);
+
+  const handleSubmit = (name: string) => {
+    if (setTodos.length > 0) {
+      setTodos([
+        ...todos,
+        {
+          id: nanoid(),
+          name,
+          isComplete: false,
+        },
+      ]);
+    };
+  };
 
   const deleteTodo = (id: string) => {
     setTodos((todos) => {
@@ -30,6 +43,7 @@ export const TodoProvider = ({ children }: TodoProviderType) => {
       value={{
         todos,
         setTodos,
+        handleSubmit,
         markCompletedTodo,
         deleteTodo,
       }}

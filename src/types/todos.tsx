@@ -6,9 +6,10 @@ export type TodoType = {
 
 export type TodoContextType = {
   todos: TodoType[] | [];
+  setTodos: (value: React.SetStateAction<TodoType[]>) => void;
+  handleSubmit: (name: string) => void;
   markCompletedTodo: (id: string) => void;
   deleteTodo: (todoId: string) => void;
-  setTodos: (value: React.SetStateAction<TodoType[]>) => void
 };
 
 export type TodoProviderType = {

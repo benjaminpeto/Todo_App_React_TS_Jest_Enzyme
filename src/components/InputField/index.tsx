@@ -1,13 +1,10 @@
-import { nanoid } from "nanoid";
 import { useState } from "react";
-import { TodoType } from "../../types/todos";
 
 type InputFieldProps = {
-  todos: TodoType[],
-  setTodos: React.Dispatch<React.SetStateAction<TodoType[]>>;
+  handleSubmit: (name: string) => void;
 }
 
-export const InputField = ({todos, setTodos}: InputFieldProps) => {
+export const InputField = ({handleSubmit}: InputFieldProps) => {
   const [ newTodo, setNewTodo ] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>)=> {
@@ -15,20 +12,10 @@ export const InputField = ({todos, setTodos}: InputFieldProps) => {
     setNewTodo(value);
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+  const addTodo = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    if (newTodo.length > 0) {
-      setTodos([
-        ...todos,
-        {
-          id: nanoid(),
-          name: newTodo,
-          isComplete: false,
-        },
-      ]);
-      setNewTodo("");
-    }
+    handleSubmit(newTodo);
+    setNewTodo("");
   };
 
   return (
@@ -41,7 +28,7 @@ export const InputField = ({todos, setTodos}: InputFieldProps) => {
         />
         <button
           type='submit'
-          onClick={handleSubmit}
+          onClick={addTodo}
         >
           Add
         </button>
