@@ -6,7 +6,6 @@ export type TodoType = {
 
 export type TodoContextType = {
   todos: TodoType[] | [];
-  setTodos: (value: React.SetStateAction<TodoType[]>) => void;
   editTodo: (name: string, id: string) => void;
   addTodo: (name: string) => void;
   markCompletedTodo: (id: string) => void;

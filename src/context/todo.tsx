@@ -46,7 +46,6 @@ export const TodoProvider = ({ children }: TodoProviderType) => {
     <TodoContext.Provider
       value={{
         todos,
-        setTodos,
         editTodo,
         addTodo,
         markCompletedTodo,
