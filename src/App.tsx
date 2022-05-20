@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div className="App">
       <h1>Todo App</h1>
-      <InputField addTodo={addTodo} />
+      <InputField onSubmit={addTodo} />
       <TodoList />
     </div>
   );

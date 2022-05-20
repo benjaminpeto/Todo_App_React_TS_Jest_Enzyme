@@ -1,23 +1,23 @@
 import { useState } from "react";
 
 type InputFieldProps = {
-  addTodo: (name: string) => void;
+  onSubmit: (input: string) => void;
 };
 
-export const InputField = ({ addTodo }: InputFieldProps) => {
-  const [newTodo, setNewTodo] = useState("");
+export const InputField = ({ onSubmit }: InputFieldProps) => {
+  const [input, setInput] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setNewTodo(value);
+    setInput(value);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (newTodo) {
-      addTodo(newTodo);
+    if (input) {
+      onSubmit(input);
     }
-    setNewTodo("");
+    setInput("");
   };
 
   return (
@@ -25,7 +25,7 @@ export const InputField = ({ addTodo }: InputFieldProps) => {
       <input
         type="text"
         placeholder="Write your task here.."
-        value={newTodo}
+        value={input}
         onChange={handleChange}
       />
       <button type="submit" onClick={handleSubmit}>
