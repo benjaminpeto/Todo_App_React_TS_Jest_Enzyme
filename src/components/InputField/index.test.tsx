@@ -1,14 +1,14 @@
-import { shallow, ShallowWrapper } from "enzyme";
+import { mount, ReactWrapper } from "enzyme";
 
 import { InputField } from "./";
 
 const onSubmit = jest.fn();
 
 describe("<InputField /> renders correctly", () => {
-	let wrapper: ShallowWrapper;
+	let wrapper: ReactWrapper;
 
 	beforeEach(() => {
-		wrapper = shallow(<InputField onSubmit={onSubmit} />);
+		wrapper = mount(<InputField onSubmit={onSubmit} />);
 	});
 
 	it("should have 2 children", () => {
@@ -25,5 +25,14 @@ describe("<InputField /> renders correctly", () => {
 
 	it("renders a <button> with the text of `Add`", () => {
 		expect(wrapper.find("button").text()).toBe("Add");
+	});
+
+	describe("the user populates the input", () => {
+		it("should update the state property input with `some task` and submit by clicking the button", () => {
+			const input = wrapper.find('input[type="text"]');
+			input.simulate("change", { target: { value: "some task" } });
+			wrapper.find("button").simulate("click");
+			expect(onSubmit).toHaveBeenCalledWith("some task");
+		});
 	});
 });
