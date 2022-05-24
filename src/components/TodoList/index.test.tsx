@@ -10,6 +10,16 @@ const todos = [
 		name: "learn TypeScript",
 		isComplete: false,
 	},
+	{
+		id: "890098",
+		name: "learn Enzyme",
+		isComplete: true,
+	},
+	{
+		id: "3449d",
+		name: "learn Jest",
+		isComplete: false,
+	},
 ];
 const editTodo = jest.fn();
 const toggleTodo = jest.fn();
@@ -35,7 +45,15 @@ describe("<TodoList /> renders correctly", () => {
 		expect(
 			wrapper.containsMatchingElement(
 				<ul>
-					<ListItem />
+					{todos.map((todo) => (
+						<ListItem
+							listItem={todo}
+							key={todo.id}
+							editListItem={editTodo}
+							toggleListItem={toggleTodo}
+							deleteListItem={deleteTodo}
+						/>
+					))}
 				</ul>
 			)
 		).toBe(true);
