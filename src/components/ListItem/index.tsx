@@ -56,8 +56,18 @@ export const ListItem = ({
 				<button data-testid="edit-btn" onClick={toggleEdit}>
 					{!isEdit ? "Edit" : "Save"}
 				</button>
-				<button onClick={() => toggleListItem(listItem.id)}>Done</button>
-				<button onClick={() => deleteListItem(listItem.id)}>Delete</button>
+				<button
+					data-testid="done-btn"
+					onClick={() => toggleListItem(listItem.id)}
+				>
+					Done
+				</button>
+				<button
+					data-testid="delete-btn"
+					onClick={() => deleteListItem(listItem.id)}
+				>
+					Delete
+				</button>
 			</div>
 		</div>
 	);

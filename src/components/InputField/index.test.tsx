@@ -1,6 +1,6 @@
 import { mount, ReactWrapper } from "enzyme";
 
-import { InputField } from "./";
+import { InputField } from "./index";
 
 const onSubmit = jest.fn();
 

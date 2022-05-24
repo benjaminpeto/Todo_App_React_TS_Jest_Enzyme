@@ -1,7 +1,7 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import { cleanup } from "@testing-library/react";
 
-import { ListItem } from "./";
+import { ListItem } from "./index";
 
 const listItem = {
 	id: "1234",
@@ -44,7 +44,7 @@ describe("<ListItem /> renders correctly", () => {
 		).toBe(true);
 	});
 
-	describe("when Edit button is clicked", () => {
+	describe("when Edit <button> is clicked", () => {
 		beforeEach(() => {
 			wrapper.find("[data-testid='edit-btn']").simulate("click");
 		});
@@ -57,12 +57,29 @@ describe("<ListItem /> renders correctly", () => {
 			expect(wrapper.containsMatchingElement(<input />)).toBe(true);
 		});
 
-		it("then the user changes the task", () => {
+		it("then the user changes the task and click the <button> again", () => {
 			wrapper
 				.find('input[type="text"]')
 				.simulate("change", { target: { value: "newer task" } });
+			expect(wrapper.find('input[type="text"]').prop("value")).toBe(
+				"newer task"
+			);
 			wrapper.find("[data-testid='edit-btn']").simulate("click");
 			expect(wrapper.find("[data-testid='edit-btn']").text()).toBe("Edit");
+		});
+	});
+
+	describe("when Done <button> is clicked", () => {
+		it("<li> classname will change to `completed-listItem`", () => {
+			wrapper.find("[data-testid='done-btn']").simulate("click");
+			expect(toggleListItem).toHaveBeenCalledTimes(1);
+		});
+	});
+
+	describe("when Delete <button> is clicked", () => {
+		it("listItem will be deleted`", () => {
+			wrapper.find("[data-testid='delete-btn']").simulate("click");
+			expect(deleteListItem).toHaveBeenCalledTimes(1);
 		});
 	});
 });
