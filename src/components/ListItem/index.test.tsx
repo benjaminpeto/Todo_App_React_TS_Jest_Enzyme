@@ -1,15 +1,18 @@
 import { shallow, ShallowWrapper } from "enzyme";
+import { cleanup } from "@testing-library/react";
 
 import { ListItem } from "./";
 
 const listItem = {
-	id: "fafjk3-rk32",
+	id: "1234",
 	name: "Task 1",
 	isComplete: false,
 };
 const editListItem = jest.fn();
 const toggleListItem = jest.fn();
 const deleteListItem = jest.fn();
+
+afterEach(cleanup);
 
 describe("<ListItem /> renders correctly", () => {
 	let wrapper: ShallowWrapper;
@@ -25,11 +28,11 @@ describe("<ListItem /> renders correctly", () => {
 		);
 	});
 
-	it("and renders a <li> element with the text `Task 1`", () => {
+	it("with a <li> element with the text `Task 1`", () => {
 		expect(wrapper.containsMatchingElement(<li>Task 1</li>)).toBe(true);
 	});
 
-	it("and renders a <div> element with 3 <button> inside", () => {
+	it("and a <div> element with 3 <button> inside", () => {
 		expect(
 			wrapper.containsMatchingElement(
 				<div>
@@ -39,5 +42,27 @@ describe("<ListItem /> renders correctly", () => {
 				</div>
 			)
 		).toBe(true);
+	});
+
+	describe("when Edit button is clicked", () => {
+		beforeEach(() => {
+			wrapper.find("[data-testid='edit-btn']").simulate("click");
+		});
+
+		it("toggles the <button> text from `Edit` to `Save`", () => {
+			expect(wrapper.find("[data-testid='edit-btn']").text()).toBe("Save");
+		});
+
+		it("then renders an <input>", () => {
+			expect(wrapper.containsMatchingElement(<input />)).toBe(true);
+		});
+
+		it("then the user changes the task", () => {
+			wrapper
+				.find('input[type="text"]')
+				.simulate("change", { target: { value: "newer task" } });
+			wrapper.find("[data-testid='edit-btn']").simulate("click");
+			expect(wrapper.find("[data-testid='edit-btn']").text()).toBe("Edit");
+		});
 	});
 });
